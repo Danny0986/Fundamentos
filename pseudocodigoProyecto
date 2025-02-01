@@ -1,0 +1,108 @@
+Inicio 
+	numDias, diasProm, i[0-n]
+	promedioTemp, d[0-n]
+	temperaturas[numDias], d[0-n]
+	predicciones[numDias], d[0-n] 
+	distribucion[5], i[0-n]
+	distribucion[5] ← [0, 0, 0, 0, 0] 
+	Escribir "Ingrese numero de dias del mes que se va a utilizar"
+	Leer numDias
+	Escribir "Ingrese las temperaturas del mes" 
+	Para (i=0; i<numDias; i++) hacer 
+		Escribir "Temperatura Dia " + (i+1) + ": "
+		Leer temperaturas[i]
+	Fin Para
+	Escribir "Estas son las temperaturas Maxima y Minima del mes: "
+	mostrarTempExtrema(temperaturas)
+	promedioTemp <- calcularPromedioTemp(temperaturas)
+	Escribir "El promedio de temperatura del mes es: " + promedioTemp
+	diasProm <- contarDiasProm(temperaturas, promedioTemp)
+	Escribir "El numero de dias por encima del promedio es: " + diasProm
+	CalcularDistribucion(temperaturas, distribucion)
+	MostrarTablaDistribucion(distribucion)
+	generarPredicciones(temperaturas, predicciones)
+	mostrarPredicciones(predicciones)
+Fin
+Procedimiento mostrarTempExtrema(temperaturas)
+	tempMaxima, tempMinima, d[0-n]
+	tempMaxima = temperaturas[0]
+	tempMinima = temperaturas[0]
+	Para (i=0; i<longitud(temperaturas); i++) hacer 
+		Si(temperaturas[i] < tempMinima) entonces
+			tempMinima = temperaturas[i]
+		Fin Si
+		Si (temperaturas[i] > tempMaxima) entonces 
+			tempMaxima = temperaturas[i]
+		Fin Si 
+		Escribir "La temperatura mas alta es: " + tempMaxima
+		Escribir "La temperatura mas baja es: " + tempMinima
+Fin Procedimiento
+Funcion calcularPromedioTemp(temperaturas)
+	promedio, suma, d[0-n]
+	Para (i=0; i<longitud(temperaturas); i++) hacer 
+		suma += temperaturas[i] 
+	Fin Para
+	promedio = suma / longitud(temperaturas)
+	retornar promedio
+Fin Funcion 
+Funcion contarDiasProm(temperaturas)
+	promedio, d[0-n]
+	contador, i[0-n]
+	contador <- 0
+	promedio <- calcularPromedioTemp(temperaturas)
+	Para (i=0; i<longitud(temperaturas); i++) hacer 
+		Si(temperaturas[i] > promedio)
+			contador += 1
+		Fin Si
+	Fin Para
+	retornar contador
+Fin Funcion
+Procedimiento CalcularDistribucion(temperaturas, distribucion)
+    Para cada temp en temperaturas Hacer
+        Si temp < 10 Entonces
+            distribucion[0] ← distribucion[0] + 1
+        SinoSi temp >= 10 Y temp < 20 Entonces
+            distribucion[1] ← distribucion[1] + 1
+        SinoSi temp >= 20 Y temp < 30 Entonces
+            distribucion[2] ← distribucion[2] + 1
+        SinoSi temp >= 30 Y temp < 40 Entonces
+            distribucion[3] ← distribucion[3] + 1
+        Sino
+            distribucion[4] ← distribucion[4] + 1
+        FinSi
+    FinPara
+FinProcedimiento
+Procedimiento MostrarTablaDistribucion(distribucion)
+    Escribir "\nTabla de Distribución de Temperaturas:"
+    Escribir "----------------------------------------"
+    Escribir "| Rango de Temperatura  | Días        |"
+    Escribir "----------------------------------------"
+    Escribir "| Menos de 10°C        | ", distribucion[0], " días |"
+    Escribir "| 10°C - 19°C          | ", distribucion[1], " días |"
+    Escribir "| 20°C - 29°C          | ", distribucion[2], " días |"
+    Escribir "| 30°C - 39°C          | ", distribucion[3], " días |"
+    Escribir "| 40°C o más           | ", distribucion[4], " días |"
+    Escribir "----------------------------------------"
+FinProcedimiento
+Procedimiento temperaturasExtremas(temperaturas)
+	promedio, d[0-n]
+	promedio <- calcularPromedioTemp(temperaturas)
+	Para (i=0; i<longitud(temperaturas); i++) hacer 
+		Si(temperaturas[i] > promedio)
+			Escribir "Temperatura: " + temperaturas[i] + " Dia " + i
+		Fin Si
+	Fin Para
+Fin Procedimiento
+Procedimiento generarPredicciones(temperaturas, predicciones)
+	Para (i=0; i<longitud(temperaturas)-1; i++) hacer 
+		predicciones[i] <- (temperaturas[i] + temperaturas[i+1]) / 2
+	Fin Para
+	predicciones[longitud(temperaturas)-1] <- temperaturas[longitud(temperaturas)-1]
+Fin Procedimiento
+
+Procedimiento mostrarPredicciones(predicciones)
+	Escribir "\nPredicciones de temperatura para los próximos días:"
+	Para (i=0; i<longitud(predicciones); i++) hacer 
+		Escribir "Día ", i+1, " - Temperatura estimada: ", predicciones[i]
+	Fin Para
+Fin Procedimiento
