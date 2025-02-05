@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class temperaturas {
+public class temperatura {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -110,4 +110,3 @@ public class temperaturas {
         }
     }
 }
-

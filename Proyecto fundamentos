@@ -61,15 +61,21 @@ Procedimiento CalcularDistribucion(temperaturas, distribucion)
     Para cada temp en temperaturas Hacer
         Si temp < 10 Entonces
             distribucion[0] ← distribucion[0] + 1
-        SinoSi temp >= 10 Y temp < 20 Entonces
-            distribucion[1] ← distribucion[1] + 1
-        SinoSi temp >= 20 Y temp < 30 Entonces
-            distribucion[2] ← distribucion[2] + 1
-        SinoSi temp >= 30 Y temp < 40 Entonces
-            distribucion[3] ← distribucion[3] + 1
         Sino
-            distribucion[4] ← distribucion[4] + 1
-        FinSi
+        	Si temp >= 10 Y temp < 20 Entonces
+            	distribucion[1] ← distribucion[1] + 1
+        	Sino
+        		Si temp >= 20 Y temp < 30 Entonces
+            		distribucion[2] ← distribucion[2] + 1
+        		Sino
+        			Si temp >= 30 Y temp < 40 Entonces
+            			distribucion[3] ← distribucion[3] + 1
+        			Sino
+            			distribucion[4] ← distribucion[4] + 1
+        			Fin Si
+        		Fin Si
+        	Fin Si
+        Fin Si
     FinPara
 FinProcedimiento
 Procedimiento MostrarTablaDistribucion(distribucion)
